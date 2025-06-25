@@ -16,10 +16,12 @@ return new class extends Migration
             $table->foreignId('artifact_id')->constrained('artifacts')->onDelete('cascade'); // Referência à peça
             //$table->foreignId('image_id')->constrained('images')->onDelete('cascade'); // Referência à imagem
             $table->string('name', 150); // Nome do autor
+            $table->string('biography', 250); // Biografia
             $table->date('birth_date')->nullable(); // Data de nascimento
             $table->string('birthplace', 150)->nullable(); // Naturalidade
             $table->timestamp('added_at')->nullable();
             $table->timestamps(); // Criado e atualizado automaticamente
+            $table->boolean('active')->default(false); // Ativo
         });
     }
 

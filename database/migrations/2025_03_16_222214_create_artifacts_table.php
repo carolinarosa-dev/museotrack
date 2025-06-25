@@ -16,12 +16,15 @@ return new class extends Migration
             $table->foreignId('super_category_id')->nullable(); // ID da super categoria
             $table->foreignId('author_id')->nullable(); // ID do autor
             $table->string('category', 100)->nullable();
-            $table->string('name', 100); // Denominação
+            $table->string('name', 100); // Denominaçao
+            $table->string('image', 100); // Imagem
+            $table->string('history', 100); // Historial
             $table->string('technique', 100)->nullable();
             $table->string('workshop_or_manufacturer', 100); // Oficina/Fabricante
             $table->string('material', 100);
             $table->date('dating'); // Datação
             $table->timestamp('added_at')->nullable();
+            $table->boolean('active')->default(false); // Ativo
             $table->timestamps(); // Criará automaticamente created_at e updated_at
 
         });

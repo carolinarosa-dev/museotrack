@@ -19,6 +19,7 @@ return new class extends Migration
             $table->date('date');
             $table->timestamp('added_at')->nullable();
             $table->timestamps(); // Já inclui created_at e updated_at automaticamente
+            $table->boolean('active')->default(false); // Ativo
         });
     }
 

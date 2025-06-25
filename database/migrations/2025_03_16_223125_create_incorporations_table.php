@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id(); // ID da incorporação
             $table->foreignId('artifact_id')->constrained('artifacts'); // Chave estrangeira para a peça (artifacts)
             $table->date('date'); // Data da incorporação
+            $table->boolean('active')->default(false); // Ativo
         });
     }
 

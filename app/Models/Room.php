@@ -10,7 +10,7 @@ class Room extends Model
     use HasFactory;
 
     protected $table = 'rooms';
-    protected $fillable = ['artifact_id', 'designation', 'added_at'];
+    protected $fillable = ['artifact_id', 'designation', 'added_at','ative'];
 
     public function artifact()
     {

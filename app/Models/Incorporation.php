@@ -11,7 +11,7 @@ class Incorporation extends Model
     use HasFactory;
 
     protected $table = 'incorporations';
-    protected $fillable = ['artifact_id', 'date'];
+    protected $fillable = ['artifact_id', 'date','ative'];
 
     public function artifact()
     {

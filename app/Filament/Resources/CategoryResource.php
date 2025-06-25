@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\CategoryResource\Pages;
 use App\Filament\Resources\CategoryResource\RelationManagers;
+use App\Models\category;
 use App\Models\SuperCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -17,10 +18,10 @@ use Illuminate\Support\Str;
 
 class CategoryResource extends Resource
 {
-    protected static ?string $model = SuperCategory::class;
+    protected static ?string $model = Category::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-academic-cap';
-    protected static ?string $navigationLabel = 'Super Categoria';
+    protected static ?string $navigationLabel = 'Categoria';
 
 
     protected static ?string $slug = 'museu/categories';
@@ -31,41 +32,52 @@ class CategoryResource extends Resource
 
     protected static ?int $navigationSort = 1;
 
+
     public static function form(Form $form): Form
     {
         return $form
-            ->columns(1)
+            //->columns(1)
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255),
+                    ->maxLength(255)
+                    ->unique(),
+
 
                 Forms\Components\RichEditor::make('description')
                     ->columnSpanFull(),
 
                 Forms\Components\Toggle::make('active')
-                    ->required(),
+                    ->required()
+                    ->label('Visible to customers.')
+                    ->default(true)
 
             ]);
     }
+
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                    ->label('Nome')
+                    ->searchable()
+                    ->sortable(),
 
-                /*Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),*/
-                Tables\Columns\ToggleColumn::make('active'),
+                Tables\Columns\TextColumn::make('created_at')
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\ToggleColumn::make('active')
+                ->label('Visible to customers'),
 
               /*  Tables\Columns\TextColumn::make('updated_at')
                     ->toggleable(isToggledHiddenByDefault: true)
                     ->dateTime()
                     ->sortable()*/
+                Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Last Updated')
+                    ->date(),
             ])
             ->filters([
                 //
@@ -75,6 +87,7 @@ class CategoryResource extends Resource
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
+
             ->groupedBulkActions([
                 Tables\Actions\DeleteBulkAction::make()
                     ->action(function () {
@@ -85,6 +98,7 @@ class CategoryResource extends Resource
                     }),
             ]);
     }
+
 
 
     public static function getPages(): array

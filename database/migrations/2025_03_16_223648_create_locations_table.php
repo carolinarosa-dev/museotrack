@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('city', 50);
             $table->timestamp('added_at')->nullable();
             $table->timestamps();
+            $table->boolean('active')->default(false); // Ativo
         });
     }
 

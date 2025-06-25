@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('date'); // Data da imagem
             $table->timestamp('added_at')->nullable(); // Data de adição
             $table->timestamps(); // created_at e updated_at automáticos
+            $table->boolean('active')->default(false); // Ativo
         });
     }
 

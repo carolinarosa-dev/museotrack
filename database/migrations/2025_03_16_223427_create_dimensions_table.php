@@ -24,6 +24,7 @@ return new class extends Migration
             $table->text('other_relevant_data')->nullable();
             $table->string('name');
             $table->timestamps();
+            $table->boolean('active')->default(false); // Ativo
         });
     }
 

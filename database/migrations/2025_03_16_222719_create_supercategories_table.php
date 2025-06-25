@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id(); // ID da super categoria
             $table->string('name'); // Designação
             $table->text('description'); // Designação
-            $table->boolean('active')->default(false); // Designação
+            $table->boolean('active')->default(false); // Ativo
             $table->timestamps();
+
         });
     }
 

@@ -10,7 +10,7 @@ class Location extends Model
     use HasFactory;
 
     protected $table = 'locations';
-    protected $fillable = ['artifact_id', 'postal_code', 'street', 'number', 'city', 'added_at'];
+    protected $fillable = ['artifact_id', 'postal_code', 'street', 'number', 'city', 'added_at','ative'];
 
     public function artifact()
     {

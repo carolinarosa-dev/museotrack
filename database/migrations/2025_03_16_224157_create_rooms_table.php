@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('name', 50); // 'designacao' traduzido para 'name'
             $table->timestamp('added_at')->nullable();
             $table->timestamps(); // Já inclui created_at e updated_at automaticamente
+            $table->boolean('active')->default(false); // Ativo
         });
     }
 

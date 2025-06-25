@@ -10,7 +10,7 @@ class ImageRecord extends Model
     use HasFactory;
 
     protected $table = 'image_records';
-    protected $fillable = ['artifact_id', 'location', 'type', 'author', 'dating', 'added_at'];
+    protected $fillable = ['artifact_id', 'location', 'type', 'author', 'dating', 'added_at','ative'];
 
     public function artifact()
     {

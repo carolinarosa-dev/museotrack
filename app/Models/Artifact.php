@@ -11,7 +11,7 @@ class Artifact extends Model
     use HasFactory;
 
     protected $table = 'artifacts'; // Nome correto da tabela
-    protected $fillable = ['super_category_id', 'author_id', 'category', 'name', 'technique', 'workshop', 'material', 'dating', 'added_at'];
+    protected $fillable = ['super_category_id', 'author_id', 'category', 'name', 'technique', 'workshop', 'material', 'dating', 'added_at','ative','history'];
 
     public function supercategory()
     {

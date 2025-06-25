@@ -10,7 +10,7 @@ class Information extends Model
     use HasFactory;
 
     protected $table = 'information';
-    protected $fillable = ['artifact_id', 'description', 'origin', 'observations', 'history', 'bibliography', 'added_at'];
+    protected $fillable = ['artifact_id', 'description', 'origin', 'observations', 'history', 'bibliography', 'added_at','ative'];
 
     public function artifact()
     {

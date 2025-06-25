@@ -12,7 +12,7 @@ class Author extends Model
 
     protected $table = 'authors'; // Nome correto da tabela
 
-    protected $fillable = ['artifact_id', 'image_id', 'name', 'birth_date', 'birthplace', 'added_at'];
+    protected $fillable = ['artifact_id', 'image_id', 'name', 'birth_date', 'birthplace', 'added_at','ative'];
 
     public function artifact()
     {

@@ -11,7 +11,7 @@ class ConservationStatus extends Model
 
     protected $table = 'conservation_status'; // Define o nome da tabela manualmente
 
-    protected $fillable = ['artifact_id', 'status', 'specifications', 'date', 'added_at'];
+    protected $fillable = ['artifact_id', 'status', 'specifications', 'date', 'added_at','ative'];
 
     public function artifact()
     {
