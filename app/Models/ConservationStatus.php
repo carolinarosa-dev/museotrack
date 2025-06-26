@@ -9,7 +9,7 @@ class ConservationStatus extends Model
 {
     use HasFactory;
 
-    protected $table = 'conservation_status'; // Define o nome da tabela manualmente
+    protected $table = 'conservationstatus'; // Define o nome da tabela manualmente
 
     protected $fillable = ['artifact_id', 'status', 'specifications', 'date', 'added_at','ative'];
 

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('authors', function (Blueprint $table) {
             $table->id(); // Laravel já cria um campo 'id' automaticamente como chave primária
-            $table->foreignId('artifact_id')->constrained('artifacts')->onDelete('cascade'); // Referência à peça
+            //$table->foreignId('artifact_id')->constrained('artifacts')->onDelete('cascade'); // Referência à peça
             //$table->foreignId('image_id')->constrained('images')->onDelete('cascade'); // Referência à imagem
             $table->string('name', 150); // Nome do autor
             $table->string('biography', 250); // Biografia
@@ -22,6 +22,7 @@ return new class extends Migration
             $table->timestamp('added_at')->nullable();
             $table->timestamps(); // Criado e atualizado automaticamente
             $table->boolean('active')->default(false); // Ativo
+            $table->foreignId('artifact_id')->nullable()->constrained('artifacts')->onDelete('cascade');
         });
     }
 

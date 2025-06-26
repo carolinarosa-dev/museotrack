@@ -40,8 +40,8 @@ class CategoryResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
-                    ->maxLength(255)
-                    ->unique(),
+                    ->maxLength(255),
+                   // ->unique(),
 
 
                 Forms\Components\RichEditor::make('description')
