@@ -33,4 +33,9 @@ class SuperCategory extends Model
     {
         return $this->belongsTo(User::class, 'deleted_by');
     }
+
+    public function artefacts()
+    {
+        return $this->belongsToMany(Artefact::class, 'artefact_super_categories');
+    }
 }

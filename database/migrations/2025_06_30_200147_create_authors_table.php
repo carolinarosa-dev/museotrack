@@ -20,9 +20,14 @@ return new class extends Migration
             $table->text('bibliography')->nullable();
             $table->string('address')->nullable();
             $table->json('contacts')->nullable();
-            $table->foreignId('created_by')->constrained('users');
+          /*  $table->foreignId('created_by')->constrained('users');
             $table->foreignId('updated_by')->nullable()->constrained('users');
-            $table->foreignId('deleted_by')->nullable()->constrained('users');
+            $table->foreignId('deleted_by')->nullable()->constrained('users');*/
+
+            // Auditoria;
+            $table->foreignId('created_by')->nullable()->constrained('users');
+            $table->foreignId('updated_by')->nullable()->constrained('users')->nullOnDelete();
+            $table->foreignId('deleted_by')->nullable()->constrained('users')->nullOnDelete();
             $table->timestamps();
             $table->softDeletes();
         });

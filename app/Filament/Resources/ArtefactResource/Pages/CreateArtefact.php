@@ -18,5 +18,6 @@ class CreateArtefact extends CreateRecord
             }
             $this->record->superCategories()->sync($syncData);
         }
+
     }
 }

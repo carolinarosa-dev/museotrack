@@ -23,9 +23,7 @@ return new class extends Migration
             $table->date('incorporation_date')->nullable();
             $table->foreignId('incorporation_mode_id')->nullable()->constrained('incorporation_modes');
             $table->foreignId('conservation_records_id')->nullable();
-        /*    $table->foreignId('created_by')->constrained('users');
-            $table->foreignId('updated_by')->nullable()->constrained('users');
-            $table->foreignId('deleted_by')->nullable()->constrained('users');*/
+
 
             // Auditoria
             $table->foreignId('created_by')->nullable()->constrained('users')->nullOnDelete();

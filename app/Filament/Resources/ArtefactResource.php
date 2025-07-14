@@ -1,11 +1,11 @@
 <?php
 
-
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ArtefactResource\Pages;
 use App\Models\Artefact;
 use App\Models\SuperCategory;
+use App\Models\Author;
 use Filament\Forms;
 use Filament\Tables;
 use Filament\Resources\Resource;
@@ -54,9 +54,25 @@ class ArtefactResource extends Resource
 
                 Forms\Components\Select::make('super_categories')
                     ->multiple()
-                    ->options(SuperCategory::pluck('name', 'id')->toArray())
+                    ->relationship('superCategories', 'name')
                     ->preload()
                     ->nullable(),
+
+                Forms\Components\Select::make('authors')
+                   // ->multiple()
+                    ->relationship('authors', 'name')
+                  //  ->preload()
+                    ->nullable(),
+
+                Forms\Components\Select::make('workshops')
+                    ->relationship('workshops', 'name')
+                    ->multiple()
+                    ->preload()
+
+
+
+
+
 
             ]);
     }
@@ -69,14 +85,26 @@ class ArtefactResource extends Resource
                 Tables\Columns\ImageColumn::make('photos')->label('Imagem'),
                 Tables\Columns\TextColumn::make('denomination')->searchable(),
                 Tables\Columns\TextColumn::make('incorporationMode.name')->label('Incorporation Mode'),
-              //  Tables\Columns\TextColumn::make('superCategories')->label('Super Categoria'),
+                //  Tables\Columns\TextColumn::make('superCategories')->label('Super Categoria'),
                 Tables\Columns\TextColumn::make('superCategories')
                     ->label('Super Categoria')
-                    ->formatStateUsing(fn ($state, $record) =>
-                    $record->superCategories->pluck('name')->join(', ')
+                    ->formatStateUsing(fn($state, $record) => $record->superCategories->pluck('name')->join(', ')
                     )
                     ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('authors')
+                    ->label('Autor')
+                    ->formatStateUsing(fn($state, $record) => $record->authors->pluck('name')->join(', ')
+                    )
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('workshops')
+                    ->label('Workshop')
+                    ->formatStateUsing(fn($state, $record) => $record->workshops->pluck('name')->join(', ')
+                    )
+                    ->sortable()
+                    ->searchable(),
+
 
                 Tables\Columns\TextColumn::make('created_at')->dateTime(),
             ])
@@ -130,27 +158,58 @@ class ArtefactResource extends Resource
         return $data;
     }
 
-    public function afterCreate(): void
+    /**
+     * Depois de criar
+     */
+    public static function afterCreate($record): void
     {
+        // Super Categories
         $superCategories = request()->input('super_categories', []);
         if (!empty($superCategories)) {
             $pivotData = [];
             foreach ($superCategories as $superCategoryId) {
                 $pivotData[$superCategoryId] = ['created_by' => Auth::id()];
             }
-            $this->record->superCategories()->sync($pivotData);
+            $record->superCategories()->sync($pivotData);
+        }
+
+        // Authors
+        $authors = request()->input('authors', []);
+        if (!empty($authors)) {
+            $pivotData = [];
+            foreach ($authors as $authorId) {
+                $pivotData[$authorId] = ['created_by' => Auth::id()];
+            }
+            $record->authors()->sync($pivotData);
         }
     }
 
-    public function afterSave(): void
+/**
+     * Depois de atualizar
+     */
+    public static function afterSave($record): void
     {
+        // Super Categories
         $superCategories = request()->input('super_categories', []);
         if (!empty($superCategories)) {
             $pivotData = [];
             foreach ($superCategories as $superCategoryId) {
                 $pivotData[$superCategoryId] = ['updated_by' => Auth::id()];
             }
-            $this->record->superCategories()->sync($pivotData);
+            $record->superCategories()->sync($pivotData);
+        }
+
+        // Authors
+        $authors = request()->input('authors', []);
+        if (!empty($authors)) {
+            $pivotData = [];
+            foreach ($authors as $authorId) {
+                $pivotData[$authorId] = ['updated_by' => Auth::id()];
+            }
+            $record->authors()->sync($pivotData);
         }
     }
+
 }
+
+

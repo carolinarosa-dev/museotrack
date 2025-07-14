@@ -58,4 +58,25 @@ class Artefact extends Model
         ->withPivot(['created_by', 'updated_by', 'deleted_by']);
     }
 
+    public function authors()
+    {
+        return $this->belongsToMany(Author::class,'artefact_authors')
+            ->withTimestamps()
+            ->withPivot(['created_by', 'updated_by', 'deleted_by']);
+    }
+
+    // Relação ManyToMany para workshops
+
+    public function workshops()
+    {
+        return $this->belongsToMany(Workshop::class,'artefact_workshops')
+            ->withTimestamps()
+            ->withPivot(['created_by', 'updated_by', 'deleted_by'])
+            ->withTrashed();
+    }
+
+
+
+
+
 }

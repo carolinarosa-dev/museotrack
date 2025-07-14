@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('artefact_id')->constrained('artefacts');
             $table->foreignId('author_id')->constrained('authors');
-            $table->foreignId('created_by')->constrained('users');
+            $table->foreignId('created_by')->nullable()->constrained('users');
             $table->foreignId('updated_by')->nullable()->constrained('users');
             $table->foreignId('deleted_by')->nullable()->constrained('users');
             $table->timestamps();
