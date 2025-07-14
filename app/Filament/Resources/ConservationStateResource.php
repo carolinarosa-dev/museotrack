@@ -16,8 +16,8 @@ class ConservationStateResource extends Resource
     protected static ?string $model = ConservationState::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-shield-check';
-   // protected static ?string $navigationGroup = 'Configurações';
-    protected static ?string $navigationLabel = 'Conservation States';
+    protected static ?string $navigationGroup = 'Configurações';
+    protected static ?string $navigationLabel = 'Estado de Conservação';
     protected static ?string $pluralLabel = 'Conservation States';
     protected static ?string $modelLabel = 'Conservation State';
 

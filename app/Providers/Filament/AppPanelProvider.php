@@ -23,12 +23,17 @@ class AppPanelProvider extends PanelProvider
     public function panel(Panel $panel): Panel
     {
         return $panel
+            ->brandName('Museu Escolar')
             ->default()
             ->id('admin')
-            ->path('\admin')
+            ->path('/admin')
             ->login()
+           /* ->colors([
+                'primary' => Color::Orange,*/
             ->colors([
-                'primary' => Color::Amber,
+                'primary' => '#0d9488',
+                'sidebar' => '#134e4a',
+                'topbar' => '#115e59',
             ])
             ->discoverResources(in: app_path('Filament/Resources'), for: 'App\\Filament\\Resources')
             ->discoverPages(in: app_path('Filament/Pages'), for: 'App\\Filament\\Pages')
@@ -37,8 +42,8 @@ class AppPanelProvider extends PanelProvider
             ])
             ->discoverWidgets(in: app_path('Filament/Widgets'), for: 'App\\Filament\\Widgets')
             ->widgets([
-                Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
+                //Widgets\AccountWidget::class,
+               // Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

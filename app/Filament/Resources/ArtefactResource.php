@@ -20,6 +20,8 @@ class ArtefactResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-archive-box';
 
+
+
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
@@ -67,7 +69,20 @@ class ArtefactResource extends Resource
                 Forms\Components\Select::make('workshops')
                     ->relationship('workshops', 'name')
                     ->multiple()
-                    ->preload()
+                    ->preload(),
+                Forms\Components\Select::make('materials')
+                    ->label('Materials')
+                    ->relationship('materials', 'name')
+                    ->multiple()
+                    ->preload(),
+
+                Forms\Components\Select::make('techniques')
+                    ->label('Techniques')
+                    ->relationship('techniques', 'name')
+                    ->multiple()
+                    ->preload(),
+
+
 
 
 
@@ -209,6 +224,18 @@ class ArtefactResource extends Resource
             $record->authors()->sync($pivotData);
         }
     }
+
+        public static function getModelLabel(): string
+    {
+        return 'Artefacto';
+    }
+
+        public static function getPluralModelLabel(): string
+    {
+        return 'Artefactos';
+    }
+
+
 
 }
 

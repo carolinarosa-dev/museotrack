@@ -75,6 +75,20 @@ class Artefact extends Model
             ->withTrashed();
     }
 
+    public function materials()
+    {
+        return $this->belongsToMany(Material::class, 'artefact_materials')
+            ->withPivot(['created_by', 'updated_by', 'deleted_by'])
+            ->withTimestamps();
+    }
+    public function techniques()
+    {
+        return $this->belongsToMany(Technique::class, 'artefact_techniques')
+            ->withPivot(['created_by', 'updated_by', 'deleted_by'])
+            ->withTimestamps();
+    }
+
+
 
 
 
