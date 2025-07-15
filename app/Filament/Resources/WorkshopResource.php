@@ -25,15 +25,19 @@ class WorkshopResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nome')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('photo')
+                    ->label('Foto')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('address')
+                    ->label('Morada')
                     ->maxLength(255),
                 Forms\Components\TextInput::make('website')
                     ->maxLength(255),
                 Forms\Components\Textarea::make('contacts')
+                    ->label('Contactos')
                     ->json(), // usa textarea e JSON para contacts
                 // não colocamos created_by, updated_by, deleted_by no form
             ]);
@@ -44,29 +48,33 @@ class WorkshopResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nome')
                     ->searchable()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('photo')->sortable(),
-                Tables\Columns\TextColumn::make('address')->sortable(),
+                Tables\Columns\TextColumn::make('photo')->sortable()->label('Foto'),
+                Tables\Columns\TextColumn::make('address')->sortable()->label('Morada'),
                 Tables\Columns\TextColumn::make('website')->sortable(),
                 Tables\Columns\TextColumn::make('createdBy.name')
-                    ->label('Created By')
+                    ->label('Criado por')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('updatedBy.name')
-                    ->label('Updated By')
+                    ->label('Atualizado por')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('deletedBy.name')
-                    ->label('Deleted By')
+                    ->label('Eliminado por')
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Criado em')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Atualizado em')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('deleted_at')
+                    ->label('Eliminado em')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -111,5 +119,15 @@ class WorkshopResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'Oficina/Fabricante';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Oficinas/Fabricantes';
     }
 }

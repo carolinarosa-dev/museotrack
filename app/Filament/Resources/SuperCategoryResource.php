@@ -17,11 +17,19 @@ class SuperCategoryResource extends Resource
     protected static ?string $model = SuperCategory::class;
     protected static ?string $navigationIcon = 'heroicon-o-shield-check';
 
+    protected static ?string $navigationLabel = 'Super Categoria';
+
+    protected static ?string $pluralLabel = 'Supercategories';
+
+    protected static ?string $modelLabel = 'Supercategory';
+
+
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nome')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -31,7 +39,7 @@ class SuperCategoryResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->sortable()->searchable(),
+                TextColumn::make('name')->sortable()->searchable()->label('Nome'),
                 TextColumn::make('creator.name')->label('Criado por')->sortable(),
                 TextColumn::make('created_at')->label('Criado em')->dateTime()->sortable(),
             ])
@@ -65,6 +73,16 @@ class SuperCategoryResource extends Resource
     {
         $data['updated_by'] = Auth::id();
         return $data;
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'Super Categoria';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Super Categorias';
     }
 }
 

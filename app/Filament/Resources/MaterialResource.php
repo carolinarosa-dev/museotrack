@@ -20,7 +20,10 @@ class MaterialResource extends Resource
 {
     protected static ?string $model = Material::class;
     protected static ?string $navigationIcon = 'heroicon-o-cube';
-    protected static ?string $navigationLabel = 'Materials';
+
+    protected static ?string $navigationGroup = 'Configurações';
+    protected static ?string $navigationLabel = 'Matéria';
+    protected static ?string $modelLabel = 'Material';
     protected static ?string $pluralLabel = 'Materials';
 
     public static function form(Form $form): Form
@@ -28,6 +31,7 @@ class MaterialResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nome')
                     ->required()
                     ->maxLength(255),
                 Placeholder::make('created_by')
@@ -45,14 +49,15 @@ class MaterialResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
+                TextColumn::make('name')->sortable()->searchable()->label('Nome'),
                 TextColumn::make('creator.name')->label('Criado por')->sortable(),
                 TextColumn::make('updater.name')->label('Atualizado por')->sortable(),
                 TextColumn::make('created_at')->label('Criado em')->dateTime(),
                 TextColumn::make('updated_at')->label('Atualizado em')->dateTime(),
 
+
             ])
+            ->defaultSort('created_at', 'desc')
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
@@ -104,5 +109,15 @@ class MaterialResource extends Resource
     {
         $data['updated_by'] = Auth::id();
         return $data;
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'Matéria';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Matérias';
     }
 }

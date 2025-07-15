@@ -19,18 +19,27 @@ class CategoryResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationLabel = 'Categoria';
+    protected static ?string $pluralLabel = 'Categories';
+    protected static ?string $modelLabel = 'Category';
+
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nome')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('created_by')
+                    ->label('Criado por')
                     ->numeric(),
                 Forms\Components\TextInput::make('updated_by')
+                    ->label('Atualizado por')
                     ->numeric(),
                 Forms\Components\TextInput::make('deleted_by')
+                    ->label('Eliminado por')
                     ->numeric(),
             ]);
     }
@@ -40,25 +49,32 @@ class CategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nome')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('created_by')
+                    ->label('Criado por')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('updated_by')
+                    ->label('Atualizado por')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('deleted_by')
+                    ->label('Eliminado por')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Criado por')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Atualizado por')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('deleted_at')
+                    ->label('Eliminado por')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -102,5 +118,15 @@ class CategoryResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'Categoria';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Categoria';
     }
 }

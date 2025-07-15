@@ -18,35 +18,48 @@ class AuthorResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
+    protected static ?string $navigationLabel = 'Autores';
+    protected static ?string $pluralLabel = 'Authores';
+    protected static ?string $modelLabel = 'Author';
+
+
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nome')
                     ->required()
                     ->maxLength(255),
 
                 Forms\Components\FileUpload::make('photo')
+                    ->label('Fotografia')
                     ->image()
                     ->directory('author-photos')
                     ->nullable(),
 
                 Forms\Components\DatePicker::make('birth_date')
+                    ->label('Data de Nascimento')
                     ->nullable(),
 
                 Forms\Components\DatePicker::make('death_date')
+                    ->label('Data de Falecimento')
                     ->nullable(),
 
                 Forms\Components\Textarea::make('bibliography')
+                    ->label('Biografia')
                     ->nullable(),
 
                 Forms\Components\Textarea::make('address')
+                    ->label('Morada')
                     ->nullable(),
 
                 // Contacts como campo JSON: pede array de type e value
                 Forms\Components\Repeater::make('contacts')
+                    ->label('Contactos')
                     ->schema([
                         Forms\Components\Select::make('type')
+                            ->label('Tipo')
                             ->options([
                                 'tlm' => 'Telemóvel',
                                 'email' => 'Email',
@@ -63,7 +76,7 @@ class AuthorResource extends Resource
                     ->nullable(),
 
                 // Relação artefactos
-                Forms\Components\MultiSelect::make('artefacts')
+                Forms\Components\Select::make('artefacts')
                     ->relationship('artefacts', 'denomination')
                     ->preload()
                     ->label('Artefactos relacionados')
@@ -75,16 +88,15 @@ class AuthorResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name')->searchable()->sortable(),
+                Tables\Columns\TextColumn::make('name')->searchable()->sortable()->label('Nome'),
                 Tables\Columns\ImageColumn::make('photo')->label('Foto'),
-                Tables\Columns\TextColumn::make('birth_date')->date()->sortable(),
-                Tables\Columns\TextColumn::make('death_date')->date()->sortable(),
-                Tables\Columns\TextColumn::make('bibliography')->limit(50)->wrap(),
-                Tables\Columns\TextColumn::make('address')->limit(50)->wrap(),
+                Tables\Columns\TextColumn::make('birth_date')->date()->sortable()->label('Data de Nascimento'),
+                Tables\Columns\TextColumn::make('death_date')->date()->sortable()->label('Data de Falecimento'),
+                Tables\Columns\TextColumn::make('bibliography')->limit(50)->wrap()->label('Biografia'),
+                Tables\Columns\TextColumn::make('address')->limit(50)->wrap()->label('Morada'),
                 Tables\Columns\TextColumn::make('contacts')
                     ->label('Contactos')
-                    ->formatStateUsing(fn($state) =>
-                    collect(json_decode($state, true) ?? [])
+                    ->formatStateUsing(fn($state) => collect(json_decode($state, true) ?? [])
                         ->filter(fn($c) => is_array($c) && isset($c['type'], $c['value']))
                         ->map(fn($c) => "{$c['type']}: {$c['value']}")
                         ->join(', ')
@@ -95,7 +107,7 @@ class AuthorResource extends Resource
                     ->formatStateUsing(fn($record) => $record->artefacts->pluck('denomination')->join(', '))
                     ->wrap(),
 
-               Tables\Columns\TextColumn::make('created_at')->label('Criado em')->dateTime()->sortable(),
+                Tables\Columns\TextColumn::make('created_at')->label('Criado em')->dateTime()->sortable(),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -149,30 +161,14 @@ class AuthorResource extends Resource
         return $data;
     }
 
+    public static function getModelLabel(): string
+    {
+        return 'Autor';
+    }
 
-    /*
-        // Para gerir o pivot artefact_authors com created_by e updated_by
-        public function afterCreate(): void
-        {
-            $artefacts = request()->input('artefacts', []);
-            if (!empty($artefacts)) {
-                $pivotData = [];
-                foreach ($artefacts as $artefactId) {
-                    $pivotData[$artefactId] = ['created_by' => Auth::id()];
-                }
-                $this->record->artefacts()->sync($pivotData);
-            }
-        }
+    public static function getPluralModelLabel(): string
+    {
+        return 'Autores';
+    }
 
-        public function afterSave(): void
-        {
-            $artefacts = request()->input('artefacts', []);
-            if (!empty($artefacts)) {
-                $pivotData = [];
-                foreach ($artefacts as $artefactId) {
-                    $pivotData[$artefactId] = ['updated_by' => Auth::id()];
-                }
-                $this->record->artefacts()->sync($pivotData);
-            }
-        }*/
 }

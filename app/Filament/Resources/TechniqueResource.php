@@ -18,7 +18,11 @@ class TechniqueResource extends Resource
 {
     protected static ?string $model = Technique::class;
     protected static ?string $navigationIcon = 'heroicon-o-scissors';
-    protected static ?string $navigationLabel = 'Techniques';
+
+    protected static ?string $navigationGroup = 'Configurações';
+    protected static ?string $modelLabel = 'Technique';
+
+    protected static ?string $navigationLabel = 'Técnica';
     protected static ?string $pluralLabel = 'Techniques';
 
 
@@ -27,6 +31,7 @@ class TechniqueResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nome')
                     ->required()
                     ->maxLength(255)
 
@@ -40,6 +45,7 @@ class TechniqueResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nome')
                     ->searchable(),
                 TextColumn::make('creator.name')
                     ->label('Criado por')
@@ -91,5 +97,15 @@ class TechniqueResource extends Resource
             ->withoutGlobalScopes([
                 SoftDeletingScope::class,
             ]);
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'Técnica';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Técnicas';
     }
 }
