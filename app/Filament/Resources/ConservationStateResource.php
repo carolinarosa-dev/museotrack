@@ -43,13 +43,28 @@ class ConservationStateResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('name')->sortable()->searchable(),
+                TextColumn::make('name')->sortable()->searchable()->label('Nome'),
                 TextColumn::make('creator.name')->label('Criado por')->sortable(),
                 TextColumn::make('updater.name')->label('Atualizado por')->sortable(),
                 TextColumn::make('created_at')->label('Criado em')->dateTime(),
                 TextColumn::make('updated_at')->label('Atualizado em')->dateTime(),
             ])
-            ->defaultSort('created_at', 'desc');
+
+        ->defaultSort('created_at', 'desc')
+        ->filters([
+            Tables\Filters\TrashedFilter::make(),
+        ])
+        ->actions([
+            Tables\Actions\ViewAction::make(),
+            Tables\Actions\EditAction::make(),
+        ])
+        ->bulkActions([
+            Tables\Actions\BulkActionGroup::make([
+                Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
+            ])
+        ]);
     }
 
     public static function getPages(): array
@@ -59,5 +74,15 @@ class ConservationStateResource extends Resource
             'create' => Pages\CreateConservationState::route('/create'),
             'edit' => Pages\EditConservationState::route('/{record}/edit'),
         ];
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'Estado de Conservação';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Estado de Conservação';
     }
 }

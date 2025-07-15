@@ -17,7 +17,7 @@ class ImageRecordResource extends Resource
 {
     protected static ?string $model = ImageRecord::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-camera';
 
     protected static ?string $navigationGroup = 'Configurações';
     protected static ?string $navigationLabel = 'Registo de Imagens';

@@ -20,7 +20,7 @@ class ImageTypeResource extends Resource
 {
     protected static ?string $model = ImageType::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-camera';
 
     protected static ?string $navigationGroup = 'Configurações';
     protected static ?string $navigationLabel = 'Tipo de Imagens';

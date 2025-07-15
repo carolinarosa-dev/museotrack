@@ -203,13 +203,18 @@ use Filament\Resources\Table;
 class IncorporationModeResource extends Resource
 {
     protected static ?string $model = IncorporationMode::class;
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationGroup = 'Configurações';
+    protected static ?string $navigationLabel = 'Incorporação';
+    protected static ?string $pluralLabel = 'Incorporation Modes';
+    protected static ?string $modelLabel = 'Incorporation Mode';
 
     public static function form(Forms\Form $form): Forms\Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('name')
+                Forms\Components\TextInput::make('name')->label('Nome')
                     ->required()
                     ->maxLength(255),
             ]);
@@ -219,9 +224,9 @@ class IncorporationModeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
-                Tables\Columns\TextColumn::make('created_at')->dateTime(),
-                Tables\Columns\TextColumn::make('updated_at')->dateTime(),
+                Tables\Columns\TextColumn::make('name')->label('Nome'),
+                Tables\Columns\TextColumn::make('created_at')->dateTime()->label('Criado em'),
+                Tables\Columns\TextColumn::make('updated_at')->dateTime()->label('Atualizado em'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -259,6 +264,16 @@ class IncorporationModeResource extends Resource
     {
         $data['updated_by'] = auth()->id();
         return $data;
+    }
+
+    public static function getModelLabel(): string
+    {
+        return 'Incorporação';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Incorporação';
     }
 
 

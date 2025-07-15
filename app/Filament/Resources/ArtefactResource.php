@@ -18,7 +18,11 @@ class ArtefactResource extends Resource
 {
     protected static ?string $model = Artefact::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-archive-box';
+    protected static ?string $navigationIcon = 'heroicon-o-cube';
+
+    protected static ?string $navigationLabel = 'Artefactos';
+    protected static ?string $pluralLabel = 'Artefacts';
+    protected static ?string $modelLabel = 'Artefact';
 
 
 
@@ -27,67 +31,73 @@ class ArtefactResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('reference')
+                    ->label('Referência')
                     ->required()
                     ->maxLength(255),
 
                 Forms\Components\TextInput::make('denomination')
+                    ->label('Denominação')
                     ->required()
                     ->maxLength(255),
 
                 Forms\Components\TextInput::make('dating')
+                    ->label('Datação')
                     ->nullable(),
 
-                Forms\Components\Textarea::make('description'),
+                Forms\Components\Textarea::make('description')
+                    ->label('Descrição'),
 
-                Forms\Components\Textarea::make('origin'),
+                Forms\Components\Textarea::make('origin')
+                    ->label('Origem'),
 
-                Forms\Components\Textarea::make('bibliography'),
+                Forms\Components\Textarea::make('bibliography')
+                    ->label('Biografia'),
 
-                Forms\Components\DatePicker::make('incorporation_date'),
+                Forms\Components\DatePicker::make('incorporation_date')
+                    ->label('Incoporação'),
 
                 Forms\Components\Select::make('incorporation_mode_id')
                     ->relationship('incorporationMode', 'name')
+                    ->label('Modo de Incorporação')
                     ->nullable(),
 
                 Forms\Components\FileUpload::make('photos')
+                    ->label('Fotos')
                     ->multiple()
                     ->directory('artefact-photos')
                     ->reorderable(),
 
                 Forms\Components\Select::make('super_categories')
+                    ->label('Super Categoria')
                     ->multiple()
                     ->relationship('superCategories', 'name')
                     ->preload()
                     ->nullable(),
 
                 Forms\Components\Select::make('authors')
+                    ->label('Autor')
                    // ->multiple()
                     ->relationship('authors', 'name')
                   //  ->preload()
                     ->nullable(),
 
                 Forms\Components\Select::make('workshops')
+                    ->label('Oficina/Fabricante')
                     ->relationship('workshops', 'name')
                     ->multiple()
                     ->preload(),
                 Forms\Components\Select::make('materials')
+                    ->label('Material')
                     ->label('Materials')
                     ->relationship('materials', 'name')
                     ->multiple()
                     ->preload(),
 
                 Forms\Components\Select::make('techniques')
-                    ->label('Techniques')
+                    ->label('Técnica')
                     ->relationship('techniques', 'name')
                     ->multiple()
                     ->preload(),
-
-
-
-
-
-
-
 
             ]);
     }
@@ -96,11 +106,10 @@ class ArtefactResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('reference')->searchable(),
+                Tables\Columns\TextColumn::make('reference')->searchable()->label('Referência'),
                 Tables\Columns\ImageColumn::make('photos')->label('Imagem'),
-                Tables\Columns\TextColumn::make('denomination')->searchable(),
-                Tables\Columns\TextColumn::make('incorporationMode.name')->label('Incorporation Mode'),
-                //  Tables\Columns\TextColumn::make('superCategories')->label('Super Categoria'),
+                Tables\Columns\TextColumn::make('denomination')->searchable()->label('Denominação'),
+                Tables\Columns\TextColumn::make('incorporationMode.name')->label('Modo de Incorporação'),
                 Tables\Columns\TextColumn::make('superCategories')
                     ->label('Super Categoria')
                     ->formatStateUsing(fn($state, $record) => $record->superCategories->pluck('name')->join(', ')
@@ -114,14 +123,14 @@ class ArtefactResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('workshops')
-                    ->label('Workshop')
+                    ->label('Oficina/Fabricante')
                     ->formatStateUsing(fn($state, $record) => $record->workshops->pluck('name')->join(', ')
                     )
                     ->sortable()
                     ->searchable(),
 
-
-                Tables\Columns\TextColumn::make('created_at')->dateTime(),
+                Tables\Columns\TextColumn::make('created_at')->dateTime()
+                ->label('Criado em'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
