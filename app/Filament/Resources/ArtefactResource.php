@@ -13,6 +13,7 @@ use Filament\Forms\Components\Select;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
+use Filament\Tables\Actions\Action;
 
 class ArtefactResource extends Resource
 {
@@ -135,6 +136,16 @@ class ArtefactResource extends Resource
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
             ])
+
+            ->headerActions([
+                Action::make('exportar_csv')
+                    ->label('Exportar Inventário CSV')
+                    ->color('success')
+                    ->icon('heroicon-o-arrow-down-tray')
+                    ->url(route('export.inventario'))
+                    ->openUrlInNewTab(),
+            ])
+
             ->actions([
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),

@@ -88,6 +88,19 @@ class Artefact extends Model
             ->withTimestamps();
     }
 
+    public function category() {
+        return $this->belongsTo(Category::class);
+    }
+
+    public function dimension() {
+        return $this->hasOne(ArtefactDimension::class);
+    }
+
+    public function latestConservationRecord() {
+        return $this->hasOne(ConservationRecord::class)->latestOfMany('date');
+    }
+
+
 
 
 
