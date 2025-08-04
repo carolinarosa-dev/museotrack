@@ -19,4 +19,14 @@ class EditArtefact extends EditRecord
             $this->record->superCategories()->sync($syncData);
         }
     }
+
+    public static function canEdit(Model $record): bool
+    {
+        return auth()->user()?->can('editar artefactos');
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return auth()->user()?->can('eliminar artefactos');
+    }
 }

@@ -255,6 +255,20 @@ class ArtefactResource extends Resource
         return 'Artefactos';
     }
 
+    /*public static function canViewAny(): bool
+    {
+        return auth()->user()?->can('ver artefactos');
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->can('criar artefactos');
+    }*/
+
+
+
+
+
 
 
 }
