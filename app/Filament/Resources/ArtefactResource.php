@@ -1,7 +1,7 @@
 <?php
-
 namespace App\Filament\Resources;
 
+use Illuminate\Database\Eloquent\Model;
 use App\Filament\Resources\ArtefactResource\Pages;
 use App\Models\Artefact;
 use App\Models\SuperCategory;
@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Actions\Action;
+
 
 class ArtefactResource extends Resource
 {
@@ -255,20 +256,16 @@ class ArtefactResource extends Resource
         return 'Artefactos';
     }
 
-    /*public static function canViewAny(): bool
+
+   public static function canEdit(Model $record): bool
     {
-        return auth()->user()?->can('ver artefactos');
+        return auth()->user()->hasAnyRole(['administrador', 'gestor']);
     }
 
-    public static function canCreate(): bool
+    public static function canDelete(Model $record): bool
     {
-        return auth()->user()?->can('criar artefactos');
-    }*/
-
-
-
-
-
+        return auth()->user()->hasAnyRole(['administrador', 'gestor']);
+    }
 
 
 }

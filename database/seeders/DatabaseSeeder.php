@@ -1,28 +1,17 @@
 <?php
 
-namespace Database\Seeders;
 
 use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
-
-/*$user = \App\Models\User::find(1);
-$user->assignRole('administrador');*/
     public function run(): void
     {
-
-        // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
-
         // Criar roles
         $roles = [
             'administrador',
@@ -60,10 +49,45 @@ $user->assignRole('administrador');*/
         Role::findByName('consulta_publica')->givePermissionTo([
             'ver artefactos',
         ]);
+
+        // Criar utilizadores para testes
+
+// Admin
+        $admin = User::firstOrCreate(
+            ['email' => 'admin@example.com'],
+            [
+                'name' => 'Administrador',
+                'password' => Hash::make('senha123'),
+            ]
+        );
+        $admin->assignRole('administrador');
+
+// Gestor
+        $gestor = User::firstOrCreate(
+            ['email' => 'gestor@example.com'],
+            [
+                'name' => 'Gestor',
+                'password' => Hash::make('senha123'),
+            ]
+        );
+        $gestor->assignRole('gestor');
+
+// Técnico Museu
+        $tecnico = User::firstOrCreate(
+            ['email' => 'tecnico@example.com'],
+            [
+                'name' => 'Técnico Museu',
+                'password' => Hash::make('senha123'),
+            ]
+        );
+        $tecnico->assignRole('tecnico_museu');
+
+// Test User (opcional)
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
+
     }
 
-
 }
-
-
-
