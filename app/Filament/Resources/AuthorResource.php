@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
+use App\Filament\Resources\AuthorResource\RelationManagers\ArtefactsRelationManager;
 
 class AuthorResource extends Resource
 {
@@ -19,7 +20,7 @@ class AuthorResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-user';
 
     protected static ?string $navigationLabel = 'Autores';
-    protected static ?string $pluralLabel = 'Authores';
+    protected static ?string $pluralLabel = 'Autores';
     protected static ?string $modelLabel = 'Author';
 
 
@@ -125,10 +126,12 @@ class AuthorResource extends Resource
             ]);
     }
 
+
+
     public static function getRelations(): array
     {
         return [
-            // podes adicionar relações Filament específicas aqui
+            ArtefactsRelationManager::class,
         ];
     }
 
