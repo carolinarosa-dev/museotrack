@@ -1,5 +1,5 @@
 <?php
-
+/*
 
 namespace Database\Seeders;
 
@@ -17,5 +17,5 @@ class EventSeeder extends Seeder {
             'publicado' => true,
         ]);
     }
-}
+}*/
 

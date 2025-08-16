@@ -23,7 +23,11 @@
     <div class="text-center mb-4">
         <img src="{{ asset('images/logo.jpg') }}" alt="Logotipo" class="logo">
         <h1 class="mt-2">Museu Escolar</h1>
-        <a href="{{ route('login') }}" class="btn btn-success mt-2">Iniciar Sessão</a>
+      {{-- <a href="{{ route('login') }}" class="btn btn-success mt-2">Iniciar Sessão</a>--}}
+        <a href="{{ url('/admin/login') }}" class="btn btn-success">
+            Iniciar sessão
+        </a>
+
     </div>
 
     <div class="row">

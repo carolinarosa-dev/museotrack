@@ -10,6 +10,7 @@ use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Support\Facades\Auth;
 
 class EventResource extends Resource
 {
@@ -17,9 +18,6 @@ class EventResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Eventos e Notícias';
-    protected static ?string $navigationLabel = 'Eventos';
-    protected static ?string $pluralLabel = 'Eventos';
-    protected static ?string $modelLabel = 'Evento';
 
     public static function form(Form $form): Form
     {
@@ -59,12 +57,10 @@ class EventResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(), // <-- Aqui adicionamos
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -73,11 +69,32 @@ class EventResource extends Resource
             ]);
     }
 
+/*    public static function canCreate(): bool
+    {
+        $user = Auth::user();
+        // Permitir criação apenas para 'administrador' ou 'gestor'
+        return in_array($user->role, ['administrador', 'gestor']);
+    }*/
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()->hasRole(['administrador', 'gestor']);
+    }
+
+    public static function canDelete($record): bool
+    {
+        return auth()->user()->hasRole(['administrador', 'gestor']);
+    }
+
+    public static function canEdit($record): bool
+    {
+        return auth()->user()->hasRole(['administrador', 'gestor']);
+    }
+
+
     public static function getRelations(): array
     {
-        return [
-            //
-        ];
+        return [];
     }
 
     public static function getPages(): array
@@ -90,3 +107,4 @@ class EventResource extends Resource
         ];
     }
 }
+
