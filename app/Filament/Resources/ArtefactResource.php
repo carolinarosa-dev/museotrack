@@ -14,6 +14,10 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Auth;
 use Filament\Tables\Actions\Action;
+use App\Models\Event;
+
+
+
 
 
 class ArtefactResource extends Resource
