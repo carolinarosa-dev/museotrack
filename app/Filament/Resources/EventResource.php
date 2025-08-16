@@ -19,6 +19,10 @@ class EventResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Eventos e Notícias';
 
+    protected static ?string $navigationLabel = 'Evento';
+    protected static ?string $modelLabel = 'Event';
+    protected static ?string $pluralLabel = 'Events';
+
     public static function form(Form $form): Form
     {
         return $form
@@ -69,12 +73,6 @@ class EventResource extends Resource
             ]);
     }
 
-/*    public static function canCreate(): bool
-    {
-        $user = Auth::user();
-        // Permitir criação apenas para 'administrador' ou 'gestor'
-        return in_array($user->role, ['administrador', 'gestor']);
-    }*/
 
     public static function canCreate(): bool
     {
@@ -106,5 +104,16 @@ class EventResource extends Resource
             'edit' => Pages\EditEvent::route('/{record}/edit'),
         ];
     }
+
+    public static function getModelLabel(): string
+    {
+        return 'Evento';
+    }
+
+    public static function getPluralModelLabel(): string
+    {
+        return 'Eventos';
+    }
+
 }
 
