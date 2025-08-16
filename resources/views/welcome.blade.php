@@ -69,5 +69,12 @@
         </div>
     </div>
 </div>
+
+<!-- Rodapé fixo -->
+<footer class="bg-gray-800 text-black text-center py-3 fixed bottom-0 w-full shadow-lg">
+    <p>&copy; {{ date('Y') }} Museu Escolar - Página criada pela Câmara Municipal de Vila Nova de Poiares</p>
+</footer>
+
+
 </body>
 </html>
