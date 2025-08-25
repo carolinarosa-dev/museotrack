@@ -105,7 +105,8 @@ class AuthorResource extends Resource
 
                 Tables\Columns\TextColumn::make('artefacts')
                     ->label('Artefactos')
-                    ->formatStateUsing(fn($record) => $record->artefacts->pluck('denomination')->join(', '))
+                    ->formatStateUsing(fn($record) =>
+                    $record->artefacts->pluck('denomination')->join(', '))
                     ->wrap(),
 
                 Tables\Columns\TextColumn::make('created_at')->label('Criado em')->dateTime()->sortable(),
